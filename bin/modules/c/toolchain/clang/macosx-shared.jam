@@ -1,6 +1,18 @@
 rule C.Toolchain.clang.macosx-shared {
 }
 
+rule C.macosx.clang.CxxLanguageStandard STANDARD {
+	Contents += "Projects[ [[C.*]] ].CLANG_CXX_LANGUAGE_STANDARD[ [[$(C.PLATFORM)]] ][ [[$(C.CONFIG)]] ] = [[$(STANDARD)]]
+
+" ;
+}
+
+rule C.macosx.clang.CxxLibrary LIBRARY {
+	Contents += "Projects[ [[C.*]] ].CLANG_CXX_LIBRARY[ [[$(C.PLATFORM)]] ][ [[$(C.CONFIG)]] ] = [[$(LIBRARY)]]
+
+" ;
+}
+
 
 rule C.macosx.FrameworkDirectories TARGET : FRAMEWORKDIRS {
 	TARGET = [ ActiveTarget $(TARGET) ] ;

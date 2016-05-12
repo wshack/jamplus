@@ -511,7 +511,16 @@ local function XcodeHelper_WriteProjectXCBuildConfiguration(self, info, projectN
 				end
 			end
 ]]
-			table.insert(self.Contents, "\t\t\t\tPRODUCT_NAME = \"" .. ((productName and productName ~= '') and productName or projectName) .. "\";\n")
+
+      if Projects['C.*']  and  Projects['C.*'].CLANG_CXX_LANGUAGE_STANDARD  and  Projects['C.*'].CLANG_CXX_LANGUAGE_STANDARD[platformName]  and  Projects['C.*'].CLANG_CXX_LANGUAGE_STANDARD[platformName][configName] then
+        table.insert(self.Contents, "\t\t\t\tCLANG_CXX_LANGUAGE_STANDARD = \"" .. Projects['C.*'].CLANG_CXX_LANGUAGE_STANDARD[platformName][configName] .. "\";\n")
+      end
+
+      if Projects['C.*']  and  Projects['C.*'].CLANG_CXX_LIBRARY  and  Projects['C.*'].CLANG_CXX_LIBRARY[platformName]  and  Projects['C.*'].CLANG_CXX_LIBRARY[platformName][configName] then
+        table.insert(self.Contents, "\t\t\t\tCLANG_CXX_LIBRARY = \"" .. Projects['C.*'].CLANG_CXX_LIBRARY[platformName][configName] .. "\";\n")
+      end
+
+      table.insert(self.Contents, "\t\t\t\tPRODUCT_NAME = \"" .. ((productName and productName ~= '') and productName or projectName) .. "\";\n")
 			table.insert(self.Contents, "\t\t\t};\n")
 			table.insert(self.Contents, '\t\t\tname = "' .. platformAndConfigText .. '";\n')
 			table.insert(self.Contents, "\t\t};\n")
